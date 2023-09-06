@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from users.serializers import UserSerializer
+from usuarios.serializers import UsuarioSerializer
 from .models import User
 import jwt
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -16,7 +16,7 @@ secret = settings.SECRET_KEY
 class RegisterView(APIView):
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        serializer = UsuarioSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
@@ -74,7 +74,7 @@ class UserView(APIView):
             raise AuthenticationFailed('No identificado!')
 
         user = User.objects.filter(id=payload['id']).first()
-        serializer = UserSerializer(user)
+        serializer = UsuarioSerializer(user)
 
         return Response(serializer.data)
 
