@@ -5,6 +5,7 @@ from rutas.serializers import RutaSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from hospitales.models import Hospital
+from django.http import HttpResponse
 
 # Pandas
 from django_pandas.io import read_frame
@@ -12,7 +13,8 @@ import pandas as pd
 from sklearn.neighbors import NearestNeighbors
 from sklearn.model_selection import train_test_split
 from sklearn import linear_model
-
+from . import pybingmaps
+bing = pybingmaps.Bing('Insert You API key HERE')
 
 def funcionEvaluacion(df_my_location):
     pref_Tiempo = 0.4
@@ -95,7 +97,10 @@ class RutaViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=["get"])
     def get_route(self, request):
         # Porcentajes de Preferencia, dados por el usuario. En esta etapa fueron definidos por el equipo
-        
+        pref_Tiempo = 0.4
+        pref_Distancia = 0.15
+        pref_Consultorio = 0.15
+        pref_Medicos = 0.3
         # Variables
         lat = request.GET.get("lat")
         lng = request.GET.get("lng")
@@ -111,12 +116,13 @@ class RutaViewSet(viewsets.ModelViewSet):
         # Se eliminó un print hospitals
         df_Hospitals = pd.DataFrame(df_Hospitals)
         df_Hospitals.head(5)
-
+        print(df_Hospitals.head(5))
+        return Response("LLegué a los hospitales")
+    
         # Juntando las coordenadas de los hospitales en un solo dataframe que es utilizado por el algoritmo de Nearest Neighbors
         df_LatitudHospitals = pd.DataFrame(df_Hospitals['LATITUD'])
         df_LongitudHospitals = pd.DataFrame(df_Hospitals['LONGITUD'])
-        df_coordenadasHospitals = df_LatitudHospitals.join(
-            df_LongitudHospitals)
+        df_coordenadasHospitals = df_LatitudHospitals.join(df_LongitudHospitals)
 
         Ev_hospitales = df_Hospitals
 
@@ -148,3 +154,16 @@ class RutaViewSet(viewsets.ModelViewSet):
         regr = linear_model.BayesianRidge()
         reg = regr.fit(X_train, y_train)
         y_pred = reg.predict(X_test)
+        
+        my_latitude = latitude
+        my_longitude = longitude
+        my_location = (my_latitude, my_longitude)
+        df_my_location = pd.DataFrame({'Latitud': [my_latitude],'Longitud': [my_longitude]})
+        df_Output = funcionEvaluacion(df_my_location)
+
+        hcf = df_Output.sort_values(["Ranking"], ascending=True)
+        hcf = hcf.head(3)
+        print(hcf)
+        hcf = hcf.to_json(orient='records') 
+        
+        return  HttpResponse('Las coordenadas ingresadas fueron: {}'.format(my_location))
