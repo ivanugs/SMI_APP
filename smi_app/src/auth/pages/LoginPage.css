@@ -1,0 +1,131 @@
+.login-form-2 {
+    border-radius: 5px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    padding: 5%;
+    background: #0062cc;
+}
+
+.login-form-2 h3 {
+    text-align: center;
+    color: #fff;
+}
+
+.login-container form {
+    padding: 10%;
+}
+
+.btnSubmit {
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+    margin: 0px 10px;
+    width: 70%; /* Añade esta línea para establecer el ancho al 70% */
+  }
+
+  .login-form-1 .btnSubmit {
+    color: #fff;
+    background-color: #0062cc;
+    width: 40%; /* Añade esta línea para establecer el ancho al 70% */
+  }
+
+.login-form-2 .btnSubmit {
+    background-color: #fff;
+    color: #0062cc;
+}
+
+.login-form-2 .ForgetPwd {
+    color: #fff;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.login-form-1 .ForgetPwd {
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.form-control {
+    max-width: 400px;
+    margin: 0 auto;
+
+}
+
+.btnSubmit {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.main-container {
+    display: flex;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+
+.login-row {
+    display: flex;
+    align-items: center;
+    max-width: 100%; /* Esto evita que el contenido se extienda más allá del ancho máximo deseado */
+    max-height: 100%; /* Esto evita que el contenido se extienda más allá del ancho máximo deseado */
+    margin: 0 auto; /* Esto centrará horizontalmente el contenido dentro del contenedor */
+  }
+
+.imagen-fondo {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+}
+
+
+.image-container-login:after {
+    content: "";
+    background-color: #fff;
+    position: absolute;
+    width: 2px;
+    height: 20em;
+    top: calc(50% - 9.5em);
+    left: 50%;
+    display: block;
+    transform: translateX(-50%);
+    max-width: 1px;
+    max-height: 20em;
+}
+
+.login-title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 3rem;
+    font-family: arial;
+    color: #1f7d50;
+    margin-bottom: 2rem;
+}
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+@media (max-width: 768px) {
+    .image-container:after {
+        display: none;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .image-container:after {
+        display: none;
+    }
+
+    .image-container {
+        margin-bottom: 2rem;
+    }
+}
