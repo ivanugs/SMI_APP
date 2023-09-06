@@ -18,7 +18,7 @@ export const useAuthStore = () => {
                 const startTime = Date.now();
                 localStorage.setItem('email', email);
                 const { data } = await Promise.race([
-                    api.post('/users/login', { email, password }),
+                    api.post('/usuarios/login', { email, password }),
                     new Promise((_, reject) => {
                         setTimeout(() => {
                             reject(new Error('Request timed out'));

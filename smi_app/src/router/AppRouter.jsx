@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
-
+import { HomePage } from "../home/pages/HomePage";
 import { useAuthStore } from "../hooks";
 
 
