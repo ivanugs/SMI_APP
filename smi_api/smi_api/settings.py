@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'pacientes',
     'hospitales',
     'servicios',
+    'registros',
     'rest_framework',
     "rest_framework_simplejwt",
     "corsheaders",
@@ -174,11 +175,11 @@ AUTH_USER_MODEL = "usuarios.Usuario"
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = ("http://localhost:5173", "http://127.0.0.1:5173")
-CORS_ALLOWED_ORIGINS = [
-   "http://localhost:5173", 
-   "http://127.0.0.1:5173",
-   "https://2bbf-189-243-222-244.ngrok-free.app"
-]
+# CORS_ALLOWED_ORIGINS = [
+#    "http://localhost:5173", 
+#    "http://127.0.0.1:5173",
+#    "https://2bbf-189-243-222-244.ngrok-free.app"
+# ]
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -196,5 +197,5 @@ CORS_ALLOW_HEADERS = [
 ]
 CORS_ALLOW_ALL_HEADERS = False
 # CORS_ALLOW_CREDENTIALS = False
-# CORS_ALLOW_ALL_ORIGINS = True
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173", "https://2bbf-189-243-222-244.ngrok-free.app"]
+CORS_ALLOW_ALL_ORIGINS = True
+# CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173", "https://2bbf-189-243-222-244.ngrok-free.app"]

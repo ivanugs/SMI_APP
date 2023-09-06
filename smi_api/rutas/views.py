@@ -5,7 +5,8 @@ from rutas.serializers import RutaSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from hospitales.models import Hospital
-from django.http import HttpResponse
+from registros.models import Registro, TipoRegistro
+from django.utils import timezone
 
 # Pandas
 from django_pandas.io import read_frame
@@ -97,7 +98,17 @@ class RutaViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=["get"])
     def get_routes(self, request):
-        return({"Hola":"Mundo"})
+        import datetime
+        mac = request.GET.get("mac")
+        print(mac)
+        five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
+        existe_registro = Registro.objects.filter(card=mac, created_at__gte=five_minutes_ago)
+        if not existe_registro:
+            tipo_registro = TipoRegistro.objects.get(nombre="lectura_paciente")
+            registro = Registro.objects.create(card=mac, tipo_registro=tipo_registro)
+            return Response({"Tarjeta registrada":mac})
+        else:
+            return Response({"Existe registro":mac})
 
     @action(detail=False, methods=["get"])
     def get_route(self, request):
