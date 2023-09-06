@@ -24,7 +24,10 @@ class Usuario(AbstractUser):
         return name
 
     def create(self, validated_data):
-        user = User(email=validated_data["email"], username=validated_data["username"])
+        user = Usuario(email=validated_data["email"], username=validated_data["username"])
         user.set_password(validated_data["password"])
         user.save()
         return user
+    
+    class Meta:
+        db_table = "usuarios"

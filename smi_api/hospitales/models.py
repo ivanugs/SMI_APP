@@ -18,6 +18,9 @@ class Hospital(BaseModel):
 
     def __str__(self):
         return self.nombre_de_la_unidad
+    
+    class Meta:
+        db_table = "hospitales"
 
 
      

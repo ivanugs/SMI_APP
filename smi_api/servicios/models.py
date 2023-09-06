@@ -9,6 +9,9 @@ class Servicio(BaseModel):
     def __str__(self):
         return self.nombre_de_la_unidad
     
+    class Meta:
+        db_table = "servicios"
+    
 class HospitalServicio(BaseModel):
     hospital = models.ForeignKey(
         Hospital, on_delete=models.CASCADE, db_column="hospital_id", null=True
@@ -16,9 +19,13 @@ class HospitalServicio(BaseModel):
     servicio = models.ForeignKey(
         Servicio, on_delete=models.CASCADE, db_column="servicio_id", null=True
     )
+    
 
     def __str__(self):
         return self.hospital.nombre_de_la_unidad + self.servicio.nombre
+    
+    class Meta:
+        db_table = "hospitales_servicio"
      
     
 

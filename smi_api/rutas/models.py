@@ -5,3 +5,6 @@ from django.db.models import JSONField
 class Ruta(BaseModel):
     punto_inicial = models.CharField(max_length=200, null=True)
     destino = JSONField("destino", default=dict)
+    
+    class Meta:
+        db_table = "rutas"

@@ -14,3 +14,6 @@ class Paciente(BaseModel):
     a_isste = models.BooleanField(default=False)
     a_privado = models.BooleanField(default=False)
     a_militar = models.BooleanField(default=False)
+    
+    class Meta:
+        db_table = "pacientes"
