@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'rutas',
     'usuarios',
-    'pacientes'
+    'pacientes',
+    'hospitales'
 ]
 
 MIDDLEWARE = [
