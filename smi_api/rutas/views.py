@@ -33,7 +33,7 @@ def funcionEvaluacion(df_my_location, my_location, reg):
     df_LatitudHospitals = pd.DataFrame(df_Hospitals['lat'])
     df_LongitudHospitals = pd.DataFrame(df_Hospitals['long'])
     df_coordenadasHospitals = df_LatitudHospitals.join(df_LongitudHospitals)
-    nbrs = NearestNeighbors(n_neighbors=2, algorithm='auto').fit(
+    nbrs = NearestNeighbors(n_neighbors=15, algorithm='auto').fit(
         df_coordenadasHospitals)
     distances, indices = nbrs.kneighbors(df_my_location)
     df_Out = pd.DataFrame(indices)
@@ -44,13 +44,12 @@ def funcionEvaluacion(df_my_location, my_location, reg):
 
     for i in df_Out.index:
         indice = df_Out.iat[i,0]
-
         df_Out.at[i, 'lat'] = df_Hospitals.iat[indice,10]  
         df_Out.at[i, 'long'] = df_Hospitals.iat[indice,11]  
-        df_Out.at[i, 'nombre_de_la_unidad'] = df_Hospitals.iat[indice,9]   
-        df_Out.at[i, 'total_de_consultorios'] = df_Hospitals.iat[indice,10]
-        df_Out.at[i, 'total_camas_area_hospitalizacion'] = df_Hospitals.iat[indice,13]   
-        df_Out.at[i, 'total_medicos_generales_y_especialistas'] = df_Hospitals.iat[indice,15]   
+        df_Out.at[i, 'nombre_de_la_unidad'] = df_Hospitals.iat[indice,14]   
+        df_Out.at[i, 'total_de_consultorios'] = df_Hospitals.iat[indice,15]
+        df_Out.at[i, 'total_camas_area_hospitalizacion'] = df_Hospitals.iat[indice,16]   
+        df_Out.at[i, 'total_medicos_generales_y_especialistas'] = df_Hospitals.iat[indice,17]   
         hospital_location = (df_Hospitals.iat[indice,10], df_Hospitals.iat[indice,11])
         df_Out.at[i, 'Tiempo_Estimado(seg)'] = bing.travelTime(my_location, hospital_location )
         df_Out.at[i, 'Distancia_Estimada(km)'] = bing.travelDistance(my_location, hospital_location)
@@ -171,4 +170,4 @@ class RutaViewSet(viewsets.ModelViewSet):
         print(hcf)
         hcf = hcf.to_json(orient='records') 
         
-        return  HttpResponse('Las coordenadas ingresadas fueron: {}'.format(my_location))
+        return  Response({"resultados":hcf})
