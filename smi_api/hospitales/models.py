@@ -1,6 +1,6 @@
 from django.db import models
-
-class Hospital(models.Model):
+from smi_api.base.models import BaseModel
+class Hospital(BaseModel):
     agno = models.IntegerField()
     clues = models.CharField(max_length=15)
     clave_institucion = models.CharField(max_length=10)
@@ -18,5 +18,25 @@ class Hospital(models.Model):
 
     def __str__(self):
         return self.nombre_de_la_unidad
+
+class Servicio(BaseModel):
+    nombre = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.nombre_de_la_unidad
+    
+class HospitalServicio(BaseModel):
+    hospital = models.ForeignKey(
+        Hospital, on_delete=models.CASCADE, db_column="hospital_id", null=True
+    )
+    servicio = models.ForeignKey(
+        Servicio, on_delete=models.CASCADE, db_column="servicio_id", null=True
+    )
+
+    def __str__(self):
+        return self.hospital.nombre_de_la_unidad + self.servicio.nombre
+     
+    
+
 
 
