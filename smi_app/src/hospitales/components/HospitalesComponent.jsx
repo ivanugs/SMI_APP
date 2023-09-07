@@ -81,7 +81,7 @@ export const HospitalesComponent = () => {
             <h2 className="title"><b>Hospitales Cercanos Disponibles</b></h2>
             <div className="custom-listgroup overflow-auto">
               {results.length > 0 && (
-                <Row>
+                <Row className="mt-3">
                   <Col xs={12} className="text-center">
                     <div className="result-container">
                       {results.map((result, index) => (
