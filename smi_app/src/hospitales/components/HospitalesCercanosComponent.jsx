@@ -3,20 +3,60 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getHospitalRecommendations } from "../../store/slices";
+import { getHospitalRecommendations, setLat, setLng } from "../../store/slices";
 import "./HospitalComponent.css";
 import { BasicHospitalResultCard } from "../components/common/BasicHospitalResultCard";
-
+import Swal from "sweetalert2";
 export const HospitalesCercanosComponent = () => {
   const dispatch = useDispatch();
-  const position = [20.478173, -103.446018];
+  const pos = [20.478173, -103.446018];
   const { isLoading, hospitales = [] } = useSelector(
     (state) => state.hospitales
   );
   const [results, setResults] = useState([]);
+  const { latitude, longitude } = useSelector((state) => state.common);
+
+  const retrieveRecommendation = async () => {
+    try{
+      Swal.fire({
+        title: "Obteniendo recomendaciones",
+        html: '<div class="spinner"></div><div style="margin-top: 10px;">Por favor, espere...</div>',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+      });
+      await dispatch(getHospitalRecommendations(pos[0], pos[1]));
+      
+    }catch{
+      
+    }
+    finally{
+      Swal.close();
+    }
+  }
+
   useEffect(() => {
-    dispatch(getHospitalRecommendations(position[0], position[1]));
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(setLat(position.coords.latitude));
+          dispatch(setLng(position.coords.longitude));
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
   }, []);
+
+  useEffect(() => {
+      // dispatch(getHospitalRecommendations(latitude, longitude));
+      retrieveRecommendation()
+      
+    }, []);
   useEffect(() => {
     if (hospitales.length > 0 && !isLoading) {
       setResults(hospitales);
@@ -28,7 +68,7 @@ export const HospitalesCercanosComponent = () => {
       <Row>
         <Col xs={10}>
           <MapContainer
-            center={position}
+            center={pos}
             zoom={13}
             style={{ width: "100%", height: "calc(98vh - 4rem)" }}
           >
@@ -47,10 +87,28 @@ export const HospitalesCercanosComponent = () => {
                 ))}
               </>
             )}
+            {/* {latitude && longitude && (
+                <>
+                  <Marker position={[latitude, longitude]}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
+                </>
+              )} */}
+              {pos && (
+                <>
+                  <Marker position={pos}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
+                </>
+              )}
           </MapContainer>
         </Col>
         <Col xs={2}>
-          <h2 className="title">Hospitales Disponibles</h2>
+          <h2 className="title">Hospitales Recomendados</h2>
           <div className="custom-listgroup overflow-auto">
             {results.length > 0 && (
               <Row className="mt-5">

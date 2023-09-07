@@ -13,7 +13,7 @@ export const store = configureStore({
         hospitales: hospitalesSlice.reducer,
         pacientes: pacientesSlice.reducer,
         users: userSlice.reducer,
-        common: commonSlice.reducer
+        common: commonSlice.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({
         serializableCheck: false
