@@ -1,6 +1,9 @@
 export * from './rutas/rutaSlice';
 export * from './rutas/rutaThunk';
 
+export * from './pacientes/pacientesSlice';
+export * from './pacientes/pacientesThunk';
+
 export * from './hospitales/hospitalesSlice';
 export * from './hospitales/hospitalesThunk';
 
