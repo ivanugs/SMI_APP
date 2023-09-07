@@ -5,6 +5,7 @@ class Hospital(BaseModel):
     clues = models.CharField(max_length=15)
     clave_institucion = models.CharField(max_length=10)
     clave_municipio = models.IntegerField()
+    clave_entidad = models.SmallIntegerField(null=True)
     lat = models.FloatField(max_length=15)
     long = models.FloatField(max_length=15)
     distancia  = models.FloatField(max_length=5)
