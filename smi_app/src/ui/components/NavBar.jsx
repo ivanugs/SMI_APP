@@ -31,7 +31,7 @@ export const NavBar = () => {
               className="img-fluid mx-auto imagen-fondo"
               alt=""
               style={{ width: '61px', height: 'auto' }}
-            />
+        />
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"

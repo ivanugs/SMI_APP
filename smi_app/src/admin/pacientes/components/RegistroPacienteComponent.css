@@ -1,0 +1,19 @@
+.content-card{
+    width: 50%;
+}
+
+#title{
+    color: green;
+    font-weight: bold;
+}
+
+#image{
+    width: 200px;
+    height: 150px;
+}
+
+.img-fluid{
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+}
