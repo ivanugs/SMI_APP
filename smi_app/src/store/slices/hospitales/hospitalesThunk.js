@@ -2,7 +2,8 @@ import { api } from "../../../api";
 import {
   startLoadingHospitals,
   setHospital,
-  setHospitals
+  setHospitals,
+  setRegister,
 } from "./hospitalesSlice";
 
 export const getHospitals = (page) => {
@@ -25,13 +26,23 @@ export const getHospital = (id) => {
   };
 };
 
+export const getHospitalRecommendations = (lat, lng) => {
+  return async (dispatch, getState) => {
+    dispatch(startLoadingHospitals());
 
-export const getHospitalRecommendations = (lat,lng) => {
-    return async (dispatch, getState) => {
-      dispatch(startLoadingHospitals());
-  
-      const { data } = await api.get(`/rutas/get_route?lat=${lat}&lng=${lng}`);
-  
-      dispatch(setHospitals({ hospitales: data.data }));
-    };
+    const { data } = await api.get(`/rutas/get_route?lat=${lat}&lng=${lng}`);
+
+    dispatch(setHospitals({ hospitales: data.data }));
   };
+};
+
+
+export const sendRegister = () => {
+  return async (dispatch, getState) => {
+    dispatch(startLoadingHospitals());
+
+    const { data } = await api.post(`/registros/register_attendance/`);
+    dispatch(setRegister({ register: data.data }));
+
+  };
+};

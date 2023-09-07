@@ -113,10 +113,10 @@ export const HospitalesCercanosComponent = () => {
           </MapContainer>
         </Col>
         <Col xs={2}>
-          <h2 className="title">Hospitales Recomendados</h2>
+          <h2 className="title"><b>Hospitales Recomendados</b></h2>
           <div className="custom-listgroup overflow-hidden">
             {results.length > 0 && (
-              <Row className="mt-5">
+              <Row className="mt-3">
                 <Col xs={12} className="text-center">
                   <div className="result-container overflow-hidden">
                     {results.map((result, index) => (
