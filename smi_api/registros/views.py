@@ -45,18 +45,18 @@ class RegistroViewSet(viewsets.ModelViewSet):
                 if paciente:
                     five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
                     existe_registro = Registro.objects.filter(card=mac_tarjeta, created_at__gte=five_minutes_ago)
-                    if not existe_registro:
-                        tipo_registro = TipoRegistro.objects.get(nombre="lectura_paciente")
-                        registro = Registro.objects.create(card=mac_tarjeta, tipo_registro=tipo_registro)
-                        return Response({"message":"Registro Exitoso", "data": {
-                            "paciente": f"{paciente.apellido_paterno} {paciente.apellido_materno} {paciente.nombres}",
-                            "tarjeta": paciente.mac_tarjeta,
-                            "hora": registro.created_at
-                        }})
+                    tipo_registro = TipoRegistro.objects.get(nombre="lectura_paciente")
+                    registro, created = Registro.objects.get_or_create(card=mac_tarjeta, tipo_registro=tipo_registro)
+                    return Response({"message":"Registro Exitoso", "data": {
+                        "paciente": f"{paciente.apellido_paterno} {paciente.apellido_materno} {paciente.nombres}",
+                        "tarjeta": paciente.mac_tarjeta,
+                        "hora": registro.created_at
+                    }})
+              
                 else:
                     return Response({"No hay Tarjeta registrada": mac_tarjeta})
         except requests.exceptions.ReadTimeout: 
             pass
         
-        return Response({"Error en el registro de": mac_tarjeta})
+        return Response({"Error en el registro"})
 

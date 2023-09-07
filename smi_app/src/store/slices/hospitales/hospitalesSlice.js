@@ -5,6 +5,7 @@ export const hospitalesSlice = createSlice({
     page: 1,
     hospitales: [],
     hospital: {},
+    register:{},
     isLoading: false,
   },
   reducers: {
@@ -20,6 +21,10 @@ export const hospitalesSlice = createSlice({
       state.isLoading = false;
       state.hospital = action.payload.hospital;
     },
+    setRegister: (state, action) => {
+      state.isLoading = false;
+      state.register = action.payload.register;
+    },
   },
 });
-export const { startLoadingHospitals, setHospitals, setHospital } =  hospitalesSlice.actions;
+export const { startLoadingHospitals, setHospitals, setHospital, setRegister } =  hospitalesSlice.actions;
