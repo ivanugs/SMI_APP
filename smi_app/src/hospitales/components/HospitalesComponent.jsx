@@ -78,7 +78,7 @@ export const HospitalesComponent = () => {
             </MapContainer>
           </Col>
           <Col xs={3}>
-            <h2 className="title"><b>Hospitales Cercanos Disponibles</b></h2>
+            <h2 className="title"><b>Hospitales Disponibles</b></h2>
             <div className="custom-listgroup overflow-auto">
               {results.length > 0 && (
                 <Row className="mt-3">
