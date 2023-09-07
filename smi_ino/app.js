@@ -47,5 +47,28 @@ async function sendCard(url, mac) {
 }
 
 server.listen(3000, () => {
-  console.log('Server listening on port 3000');
 });
+  console.log('Server listening on port 3000');
+
+/* // Sending String character by character
+function sendString(str) {
+    for (let i = 0; i < str.length; i++) {
+        port.write(new Buffer(str[i], 'ascii'), function(err, results) {
+            if (err) {
+                console.log('Error: ' + err);
+            }
+        });
+    }
+
+    // Sending the terminate character
+    port.write(new Buffer('\n', 'ascii'), function(err, results) {
+        if (err) {
+            console.log('Error: ' + err);
+        }
+    });
+}
+
+// Example usage
+const data = "CTMOSCAR";
+sendString(data);
+ */
