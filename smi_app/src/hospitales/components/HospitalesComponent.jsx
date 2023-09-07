@@ -1,9 +1,19 @@
-import React from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Row, Col } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { getHospitals } from "../../store/slices";
+
 export const HospitalesComponent = () => {
+  const dispatch = useDispatch();
   const position = [20.4043, -103.314];
+  const { isLoading, hospitales = [] } = useSelector(
+    (state) => state.hospitales
+  );
+  useEffect(() => {
+    dispatch(getHospitals());
+  }, []); 
   return (
     <>
       <Row>
