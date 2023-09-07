@@ -7,7 +7,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useSelector } from "react-redux";
 import { MiniSpinner } from "../../ui/components/MiniSpinner";
 import "./NavBar.css";
-
+import logo from "../../assets/logo.png";
 export const NavBar = () => {
   const [expanded, setExpanded] = useState(false); // State para controlar si el menú está expandido o no
   const { startLogout, user } = useAuthStore();
@@ -25,7 +25,14 @@ export const NavBar = () => {
       expanded={expanded}
     >
       <Container fluid>
-        <Navbar.Brand href="/">SMI-APP</Navbar.Brand>
+        <Navbar.Brand href="/">
+        <img
+              src={logo}
+              className="img-fluid mx-auto imagen-fondo"
+              alt=""
+              style={{ width: '61px', height: 'auto' }}
+            />
+        </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="responsive-navbar-nav"
           onClick={handleToggle}

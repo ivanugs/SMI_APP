@@ -5,6 +5,11 @@
     background: #0062cc;
 }
 
+#logo { /* aqui va codigo */
+    height: 10px;
+    width: 10px;
+}
+
 .login-form-2 h3 {
     text-align: center;
     color: #fff;
