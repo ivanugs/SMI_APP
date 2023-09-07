@@ -36,11 +36,17 @@ export const HospitalesComponent = () => {
               url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
               attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={position}>
-              <Popup>
-                A pretty CSS3 popup. <br /> Easily customizable.
-              </Popup>
-            </Marker>
+            {results.length > 0 && (
+              <>
+                {results.map((result, index) => (
+                  <Marker position={[result.lat, result.long]}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
+                ))}
+              </>
+            )}
           </MapContainer>
         </Col>
         <Col xs={2}>
