@@ -14,6 +14,19 @@ class Paciente(BaseModel):
     a_isste = models.BooleanField(default=False)
     a_privado = models.BooleanField(default=False)
     a_militar = models.BooleanField(default=False)
+    tiene_tarjeta = models.BooleanField(default=False)
+    mac_tarjeta = models.CharField(max_length=30, null=True)
     
     class Meta:
         db_table = "pacientes"
+        
+class PacienteTarjeta(models.Model):
+    mac_tarjeta = models.CharField(max_length=30, null=True)
+    paciente = models.ForeignKey(
+        Paciente, on_delete=models.CASCADE, db_column="paciente_id", null=True
+    )
+    motivo_baja = models.CharField(max_length=200, null=True)
+    
+    class Meta:
+        db_table = "tarjetas_paciente"
+
