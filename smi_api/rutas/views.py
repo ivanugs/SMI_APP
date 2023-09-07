@@ -19,6 +19,7 @@ import os
 load_dotenv()
 API_KEY = os.environ.get('BING_KEY')
 bing = pybingmaps.Bing(API_KEY)
+from hospitales.utils import ESTADOS, retrieve_state_code
 
 def funcionEvaluacion(df_my_location, my_location, reg):
     pref_Tiempo = 0.4
@@ -44,13 +45,13 @@ def funcionEvaluacion(df_my_location, my_location, reg):
 
     for i in df_Out.index:
         indice = df_Out.iat[i,0]
-        df_Out.at[i, 'lat'] = df_Hospitals.iat[indice,10]  
-        df_Out.at[i, 'long'] = df_Hospitals.iat[indice,11]  
-        df_Out.at[i, 'nombre_de_la_unidad'] = df_Hospitals.iat[indice,14]   
-        df_Out.at[i, 'total_de_consultorios'] = df_Hospitals.iat[indice,15]
-        df_Out.at[i, 'total_camas_area_hospitalizacion'] = df_Hospitals.iat[indice,16]   
-        df_Out.at[i, 'total_medicos_generales_y_especialistas'] = df_Hospitals.iat[indice,17]   
-        hospital_location = (df_Hospitals.iat[indice,10], df_Hospitals.iat[indice,11])
+        df_Out.at[i, 'lat'] = df_Hospitals.iat[indice,11]  
+        df_Out.at[i, 'long'] = df_Hospitals.iat[indice,12]  
+        df_Out.at[i, 'nombre_de_la_unidad'] = df_Hospitals.iat[indice,15]   
+        df_Out.at[i, 'total_de_consultorios'] = df_Hospitals.iat[indice,16]
+        df_Out.at[i, 'total_camas_area_hospitalizacion'] = df_Hospitals.iat[indice,17]   
+        df_Out.at[i, 'total_medicos_generales_y_especialistas'] = df_Hospitals.iat[indice,18]   
+        hospital_location = (df_Hospitals.iat[indice,11], df_Hospitals.iat[indice,12])
         df_Out.at[i, 'Tiempo_Estimado(seg)'] = bing.travelTime(my_location, hospital_location )
         df_Out.at[i, 'Distancia_Estimada(km)'] = bing.travelDistance(my_location, hospital_location)
     # Se hace la prediccion de las calificaciones mediante el algoritmo de Bayesian Ridge Regressor
@@ -88,6 +89,16 @@ def funcionEvaluacion(df_my_location, my_location, reg):
     return result
 
 
+def get_state_key(lat,lng):
+    from geopy.geocoders import Nominatim
+    from unidecode import unidecode
+    geolocator = Nominatim(user_agent="smi_app")
+    location = geolocator.reverse(f"{lat}, {lng}")
+    estado = location.raw['address']['state']
+    estado_limpio = unidecode(estado).upper()
+    clave_entidad = retrieve_state_code(estado_limpio)
+    return clave_entidad
+
 class RutaViewSet(viewsets.ModelViewSet):
 
     lookup_field = "id"
@@ -95,7 +106,16 @@ class RutaViewSet(viewsets.ModelViewSet):
     serializer_class = RutaSerializer
     pagination_class = PageNumberPagination
 
-
+    @action(detail=False, methods=["get"])
+    def get_close_hospitals(self, request):
+        
+        lat = request.GET.get("lat")
+        lng = request.GET.get("lng")
+        clave_entidad = get_state_key(lat, lng)
+        qs = Hospital.objects.filter(clave_entidad=clave_entidad)
+        print(qs.count())
+        return Response({"Hello":"world"})
+        
     @action(detail=False, methods=["get"])
     def get_route(self, request):
         # Porcentajes de Preferencia, dados por el usuario. En esta etapa fueron definidos por el equipo
@@ -112,8 +132,9 @@ class RutaViewSet(viewsets.ModelViewSet):
         else:
             return Response("Invalid response")
             # Importar datos
-
+        clave_entidad = get_state_key(lat, lng)
         qs = Hospital.objects.all()
+        # qs = Hospital.objects.filter(clave_entidad=clave_entidad)
         df_Hospitals = read_frame(qs)
         # Se eliminó un print hospitals
         df_Hospitals = pd.DataFrame(df_Hospitals)
