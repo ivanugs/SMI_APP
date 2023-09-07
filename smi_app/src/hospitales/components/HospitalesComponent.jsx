@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { Row, Col, Card } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { getHospitals } from "../../store/slices";
+import { getHospitals, setLat, setLng } from "../../store/slices";
 import "./HospitalComponent.css";
 import { BasicHospitalResultCard } from "../components/common/BasicHospitalResultCard";
 
@@ -13,7 +13,25 @@ export const HospitalesComponent = () => {
   const { isLoading, hospitales = [] } = useSelector(
     (state) => state.hospitales
   );
+  const { latitude, longitude } = useSelector((state) => state.common);
   const [results, setResults] = useState([]);
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          dispatch(setLat(position.coords.latitude));
+          dispatch(setLng(position.coords.longitude));
+          console.log(position.coords.latitude);
+          console.log(position.coords.longitude);
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+    }
+  }, []);
   useEffect(() => {
     dispatch(getHospitals());
   }, []);
@@ -24,8 +42,8 @@ export const HospitalesComponent = () => {
   }, [hospitales, isLoading]);
 
   return (
-    <Card className="content-card" >
-      <Card.Body >
+    <Card className="content-card">
+      <Card.Body>
         <Row>
           <Col xs={10}>
             <MapContainer
@@ -46,6 +64,15 @@ export const HospitalesComponent = () => {
                       </Popup>
                     </Marker>
                   ))}
+                </>
+              )}
+              {latitude && longitude && (
+                <>
+                  <Marker position={[latitude, longitude]}>
+                    <Popup>
+                      A pretty CSS3 popup. <br /> Easily customizable.
+                    </Popup>
+                  </Marker>
                 </>
               )}
             </MapContainer>

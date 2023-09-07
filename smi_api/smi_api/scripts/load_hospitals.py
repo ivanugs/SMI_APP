@@ -13,6 +13,7 @@ def load_hospitals():
             clues = row['clues']
             clave_institucion = row['clave_institucion']
             clave_municipio = row['clave_municipio']
+            # clave_entidad = row['clave_entidad']
             lat = row['lat']
             long = row['long']
             distancia = row['distancia']
@@ -31,6 +32,7 @@ def load_hospitals():
                     clues = clues,
                     clave_institucion = clave_institucion,
                     clave_municipio = clave_municipio,
+                    # clave_entidad = clave_entidad,
                     lat = lat,
                     long = long,
                     distancia = distancia,
