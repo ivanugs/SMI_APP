@@ -11,7 +11,7 @@ class Paciente(BaseModel):
     lat = models.FloatField(max_length=15)
     long = models.FloatField(max_length=15)
     a_imss = models.BooleanField(default=False)
-    a_isste = models.BooleanField(default=False)
+    a_issste = models.BooleanField(default=False)
     a_privado = models.BooleanField(default=False)
     a_militar = models.BooleanField(default=False)
     tiene_tarjeta = models.BooleanField(default=False)
