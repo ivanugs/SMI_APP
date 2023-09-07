@@ -11,7 +11,11 @@ import Swal from "sweetalert2";
 
 export const HospitalesCercanosComponent = () => {
   const dispatch = useDispatch();
-  const pos = [20.665157, -103.439192];
+  const pos = [20.67206140965494, -103.41533098991576];
+  /* const pos = [20.66016607382395, -103.34883247033798];
+  const pos = [20.474516950982423, -103.44849722986962];
+  const pos = [20.62421405016041, -103.32147766227901];
+  const pos = [20.801886044793548, -103.47958915395098]; */
   const { isLoading, hospitales = [] } = useSelector(
     (state) => state.hospitales
   );
