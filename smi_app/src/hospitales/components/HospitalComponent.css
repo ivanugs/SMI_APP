@@ -1,0 +1,26 @@
+.custom-listgroup {
+    text-align: left;
+    max-width: 400px !important; 
+    max-height: 800px !important;
+  }
+
+  .title{
+    font-size: 15pt;
+  }
+  
+  @media (min-width: 992px) {
+    .custom-listgroup {
+      max-height: 600px;
+    }
+  }
+  
+  @media (min-width: 1600px) {
+    h2.display-12 {
+      font-size: 1.5rem;
+    }
+    .custom-listgroup {
+      text-align: left;
+      max-height: 830px !important; 
+      min-width: 270px !important; 
+    }
+  }
