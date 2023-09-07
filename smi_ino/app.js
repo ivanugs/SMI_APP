@@ -1,5 +1,4 @@
 const http = require('http');
-const fs = require('fs');
 const SerialPort = require('serialport');
 const express = require('express');
 const socketIO = require('socket.io');
@@ -19,22 +18,24 @@ const port = new SerialPort('COM8', {
 
 const parser = port.pipe(new SerialPort.parsers.Readline({ delimiter: '\r\n' }));
 
-const index = fs.readFileSync('index.html', 'utf8');
 const apiUrl = 'http://192.168.1.70:8000/api/rutas/get_routes';
-
-app.get('/', (req, res) => {
-  res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(index);
-});
 
 io.on('connection', (socket) => {
   console.log('Node is listening to port');
 });
 
-parser.on('data', (data) => {
-  console.log('Received data from port: ' + data);
-  io.emit('data', data);
-  sendCard(apiUrl, data);
+app.get('/', (req, res) => {
+  res.send('Servidor en funcionamiento');
+});
+
+app.get('/data', (req, res) => {
+  // Manejo de datos del puerto COM8 y envío en formato JSON
+  parser.once('data', (data) => {
+    console.log('Received data from port: ' + data);
+    io.emit('data', data);
+    sendCard(apiUrl, data);
+    res.json({ message: 'Datos recibidos', data });
+  });
 });
 
 async function sendCard(url, mac) {
@@ -47,28 +48,6 @@ async function sendCard(url, mac) {
 }
 
 server.listen(3000, () => {
-});
   console.log('Server listening on port 3000');
+});
 
-/* // Sending String character by character
-function sendString(str) {
-    for (let i = 0; i < str.length; i++) {
-        port.write(new Buffer(str[i], 'ascii'), function(err, results) {
-            if (err) {
-                console.log('Error: ' + err);
-            }
-        });
-    }
-
-    // Sending the terminate character
-    port.write(new Buffer('\n', 'ascii'), function(err, results) {
-        if (err) {
-            console.log('Error: ' + err);
-        }
-    });
-}
-
-// Example usage
-const data = "CTMOSCAR";
-sendString(data);
- */
