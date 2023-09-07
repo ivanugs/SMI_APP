@@ -59,8 +59,13 @@ export const LoginPage = () => {
                   onChange={onInputChange}
                 />
               </div>
-              <div className="d-grid gap-2 mt-4">
-                <input type="submit" className="btnSubmit" value="Ingresar" />
+              <div className="row">
+                <div className="col-md-6">
+                  <input type="submit" className="w-100 btnSubmit " value="Ingresar"/>
+                </div>
+                <div className="col-md-6">
+                  <input type="submit" className="w-100 btnSubmit" value="Registrarme"/>
+                </div>
               </div>
             </form>
           </div>
