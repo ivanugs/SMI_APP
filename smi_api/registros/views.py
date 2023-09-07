@@ -1,3 +1,33 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
+from registros.models import Registro, TipoRegistro
+from registros.serializers import RegistroSerializer
+from rest_framework.decorators import action
+from django.utils import timezone
+from rest_framework.response import Response
 
-# Create your views here.
+from dotenv import load_dotenv
+load_dotenv()
+
+
+class RegistroViewSet(viewsets.ModelViewSet):
+
+    lookup_field = "id"
+    queryset = Registro.objects.all()
+    serializer_class = RegistroSerializer
+    pagination_class = PageNumberPagination
+    
+    @action(detail=False, methods=["get"])
+    def send_register(self, request):
+        import datetime
+        mac = request.GET.get("mac")
+        print(mac)
+        five_minutes_ago = timezone.now() + datetime.timedelta(minutes=-5)
+        existe_registro = Registro.objects.filter(card=mac, created_at__gte=five_minutes_ago)
+        if not existe_registro:
+            tipo_registro = TipoRegistro.objects.get(nombre="lectura_paciente")
+            registro = Registro.objects.create(card=mac, tipo_registro=tipo_registro)
+            return Response({"Tarjeta registrada":mac})
+        else:
+            return Response({"Existe registro":mac})
+
