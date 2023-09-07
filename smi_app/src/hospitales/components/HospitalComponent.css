@@ -1,7 +1,7 @@
 .custom-listgroup {
     text-align: left;
     max-width: 400px !important; 
-    max-height: 800px !important;
+    max-height: 750px !important;
   }
 
   .title{
@@ -10,7 +10,7 @@
   
   @media (min-width: 992px) {
     .custom-listgroup {
-      max-height: 600px;
+      max-height: 750px;
     }
   }
   
@@ -20,7 +20,12 @@
     }
     .custom-listgroup {
       text-align: left;
-      max-height: 830px !important; 
+      max-height: 750px !important; 
       min-width: 270px !important; 
     }
   }
+
+.content-card{
+    max-height: 90vh;
+    min-height: 90vh;
+}
