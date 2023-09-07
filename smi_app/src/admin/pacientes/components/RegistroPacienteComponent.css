@@ -1,15 +1,27 @@
-#title{
-    color: green;
-    font-weight: bold;
-}
 
 #image{
     width: 200px;
     height: 150px;
 }
 
-.img-fluid{
+#imagen-registro{
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+#label-crear{
+    letter-spacing: 1.5px;
+    font-size: 35px;
+    font-style: bold;
+}
+
+#btn-cancel{
+    background-color: gray;
+    border: none;
+}
+
+#btn-cancel:hover{
+    background-color: rgb(92, 92, 92);
+    border: none;
 }
