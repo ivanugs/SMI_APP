@@ -49,7 +49,7 @@ export const HospitalesComponent = () => {
             <MapContainer
               center={position}
               zoom={13}
-              style={{ width: "100%", height: "calc(85vh - 4rem)" }}
+              style={{ width: "100%", height: "calc(85vh - 4rem)"}}
             >
               <TileLayer
                 url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
@@ -78,7 +78,7 @@ export const HospitalesComponent = () => {
             </MapContainer>
           </Col>
           <Col xs={2}>
-            <h2 className="title">Hospitales Disponibles</h2>
+            <h2 className="title">Hospitales Cercanos Disponibles</h2>
             <div className="custom-listgroup overflow-auto">
               {results.length > 0 && (
                 <Row className="mt-5">
