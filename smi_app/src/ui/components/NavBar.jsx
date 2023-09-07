@@ -48,6 +48,12 @@ export const NavBar = () => {
                 Buscar
               </NavDropdown.Item>
             </NavDropdown>
+            {/* Users */}
+            <NavDropdown id="" title="Admin" menuVariant="white">
+                <NavDropdown.Item href="/users/create">
+                  Crear Usuario
+                </NavDropdown.Item>
+              </NavDropdown>
           </Nav>
           <Nav>
             <i className="fa-solid fa-user"></i>

@@ -3,7 +3,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { LoginPage } from "../auth/pages/LoginPage";
 import { HomePage } from "../home/pages/HomePage";
 import { useAuthStore } from "../hooks";
-
+import { CreateUserPage } from "../admin/pages/CreateUserPage";
 
 // Common
 import { Spinner } from "../ui/components/Spinner";
@@ -41,6 +41,8 @@ export const AppRouter = () => {
           {/* Hospitals */}
           <Route path="/hospitales/" element={<HospitalesPage />} />
           <Route path="/hospitales/cercano" element={<HospitalesCercanosPage />} />
+          {/* Admin */}
+          <Route path="/users/create" element={<CreateUserPage />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </>
       )}
