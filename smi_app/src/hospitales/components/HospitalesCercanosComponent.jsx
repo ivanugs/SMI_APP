@@ -114,11 +114,11 @@ export const HospitalesCercanosComponent = () => {
         </Col>
         <Col xs={2}>
           <h2 className="title">Hospitales Recomendados</h2>
-          <div className="custom-listgroup overflow-auto">
+          <div className="custom-listgroup overflow-hidden">
             {results.length > 0 && (
               <Row className="mt-5">
                 <Col xs={12} className="text-center">
-                  <div className="result-container">
+                  <div className="result-container overflow-hidden">
                     {results.map((result, index) => (
                       <BasicHospitalResultCard
                         key={result.Indice}

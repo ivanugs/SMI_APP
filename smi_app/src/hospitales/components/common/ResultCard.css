@@ -1,13 +1,13 @@
 .result-card {
-    background-color: #f0f0f0;
+    background-color: #18a154;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 16px;
+    padding: 10px;
     margin-bottom: 10px;
-    height: 80px;
+    height: 3rem;
     width: 270px;
     cursor: pointer;
-    position: relative;
+    position:relative;
     transition: background-color 0.3s ease;
   }
   
@@ -17,9 +17,11 @@
   }
   
   .result-card__title {
-    font-size: 15px;
-    font-weight: bold;
-    color: #000000;
+    font-size: 11px;
+    color: #ffffff;
+    text-align: left;
+    display: flex;
+    align-items: center;
     margin-bottom: 5px;
     text-align: left;
   }
