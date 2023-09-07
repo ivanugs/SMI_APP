@@ -8,6 +8,7 @@ import { CreateUserPage } from "../admin/pages/CreateUserPage";
 // Common
 import { Spinner } from "../ui/components/Spinner";
 import { HospitalesCercanosPage, HospitalesPage } from "../hospitales";
+import { ListUserPage, PacientePage } from "../admin";
 
 export const AppRouter = () => {
   // const authStatus = 'authenticated';
@@ -42,7 +43,10 @@ export const AppRouter = () => {
           <Route path="/hospitales/" element={<HospitalesPage />} />
           <Route path="/hospitales/cercano" element={<HospitalesCercanosPage />} />
           {/* Admin */}
-          <Route path="/users/create" element={<CreateUserPage />} />
+          <Route path="/usuarios/" element={<ListUserPage />} />
+          <Route path="/usuarios/create" element={<CreateUserPage />} />
+          <Route path="/pacientes/" element={<PacientePage />} />
+
           <Route path="/*" element={<Navigate to="/" />} />
         </>
       )}

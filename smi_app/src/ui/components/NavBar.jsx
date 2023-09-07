@@ -42,7 +42,9 @@ export const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown id="" title="Hospitales" menuVariant="white">
-              <NavDropdown.Item href="/hospitales/cercano">Hospital Cercano</NavDropdown.Item>
+              <NavDropdown.Item href="/hospitales/cercano">
+                Hospital Cercano
+              </NavDropdown.Item>
               <NavDropdown.Item href="/hospitales/">Lista</NavDropdown.Item>
               <NavDropdown.Item href="/hospitales/buscar">
                 Buscar
@@ -50,10 +52,14 @@ export const NavBar = () => {
             </NavDropdown>
             {/* Users */}
             <NavDropdown id="" title="Admin" menuVariant="white">
-                <NavDropdown.Item href="/users/create">
-                  Crear Usuario
-                </NavDropdown.Item>
-              </NavDropdown>
+              <NavDropdown.Item href="/usuarios/">
+                Usuarios
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/usuarios/create">
+                Crear Usuario
+              </NavDropdown.Item>
+              <NavDropdown.Item href="/pacientes/">Pacientes</NavDropdown.Item>
+            </NavDropdown>
           </Nav>
           <Nav>
             <i className="fa-solid fa-user"></i>
@@ -72,7 +78,7 @@ export const NavBar = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {isCommonLoading && <MiniSpinner/>}
+        {isCommonLoading && <MiniSpinner />}
       </Container>
     </Navbar>
   );
