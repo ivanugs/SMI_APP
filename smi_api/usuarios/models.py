@@ -18,9 +18,9 @@ class Usuario(AbstractUser):
     USERNAME_FIELD = "username"
 
     def full_name(self):
-        name = self.t_nombre_completo
-        if name == "":
-            name = str(self.first_name + " " + self.last_name)
+        name = str(self.first_name + " " + self.last_name)
+        if not name:
+            name = "Usuario Prueba"
         return name
 
     def create(self, validated_data):
