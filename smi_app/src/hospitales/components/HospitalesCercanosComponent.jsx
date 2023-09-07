@@ -6,10 +6,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { getHospitalRecommendations, setLat, setLng } from "../../store/slices";
 import "./HospitalComponent.css";
 import { BasicHospitalResultCard } from "../components/common/BasicHospitalResultCard";
+import { Routing } from "../components/common/Routing";
 import Swal from "sweetalert2";
+
 export const HospitalesCercanosComponent = () => {
   const dispatch = useDispatch();
-  const pos = [20.478173, -103.446018];
+  const pos = [20.665157, -103.439192];
   const { isLoading, hospitales = [] } = useSelector(
     (state) => state.hospitales
   );
@@ -17,7 +19,7 @@ export const HospitalesCercanosComponent = () => {
   const { latitude, longitude } = useSelector((state) => state.common);
 
   const retrieveRecommendation = async () => {
-    try{
+    try {
       Swal.fire({
         title: "Obteniendo recomendaciones",
         html: '<div class="spinner"></div><div style="margin-top: 10px;">Por favor, espere...</div>',
@@ -25,14 +27,11 @@ export const HospitalesCercanosComponent = () => {
         showConfirmButton: false,
       });
       await dispatch(getHospitalRecommendations(pos[0], pos[1]));
-      
-    }catch{
-      
-    }
-    finally{
+    } catch {
+    } finally {
       Swal.close();
     }
-  }
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -53,16 +52,14 @@ export const HospitalesCercanosComponent = () => {
   }, []);
 
   useEffect(() => {
-      // dispatch(getHospitalRecommendations(latitude, longitude));
-      retrieveRecommendation()
-      
-    }, []);
+    // dispatch(getHospitalRecommendations(latitude, longitude));
+    retrieveRecommendation();
+  }, []);
   useEffect(() => {
     if (hospitales.length > 0 && !isLoading) {
       setResults(hospitales);
     }
   }, [hospitales, isLoading]);
-
   return (
     <>
       <Row>
@@ -96,15 +93,23 @@ export const HospitalesCercanosComponent = () => {
                   </Marker>
                 </>
               )} */}
-              {pos && (
-                <>
-                  <Marker position={pos}>
-                    <Popup>
-                      A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                  </Marker>
-                </>
-              )}
+            {pos && (
+              <>
+                <Marker position={pos}>
+                  <Popup>
+                    A pretty CSS3 popup. <br /> Easily customizable.
+                  </Popup>
+                </Marker>
+              </>
+            )}
+            {results.length > 0 && (
+              <Routing
+                pstart={pos[0]}
+                pend={pos[1]}
+                dstart={results[0]['lat']}
+                dend={results[1]['long']}
+              ></Routing>
+            )}
           </MapContainer>
         </Col>
         <Col xs={2}>
