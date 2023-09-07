@@ -24,3 +24,14 @@ export const getHospital = (id) => {
     dispatch(setHospital({ hospital: data }));
   };
 };
+
+
+export const getHospitalRecommendations = (lat,lng) => {
+    return async (dispatch, getState) => {
+      dispatch(startLoadingHospitals());
+  
+      const { data } = await api.get(`/rutas/get_route?lat=${lat}&lng=${lng}`);
+  
+      dispatch(setHospitals({ hospitales: data.data }));
+    };
+  };

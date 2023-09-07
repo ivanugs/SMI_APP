@@ -5,7 +5,7 @@ from rutas.serializers import RutaSerializer
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from hospitales.models import Hospital
-
+from django.http import JsonResponse
 # Pandas
 from django_pandas.io import read_frame
 import pandas as pd
@@ -14,6 +14,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import linear_model
 from . import pybingmaps
 from dotenv import load_dotenv
+import json
 import os
 load_dotenv()
 API_KEY = os.environ.get('BING_KEY')
@@ -163,7 +164,6 @@ class RutaViewSet(viewsets.ModelViewSet):
         
         hcf = df_Output.sort_values(["Ranking"], ascending=True)
         hcf = hcf.head(3)
-        print(hcf)
         hcf = hcf.to_json(orient='records') 
-        
-        return  Response({"resultados":hcf})
+        json_object = json.loads(hcf)
+        return JsonResponse({"data":json_object}, status=200)
