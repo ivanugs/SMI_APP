@@ -8,9 +8,11 @@ body::-webkit-scrollbar{
 
 .custom-listgroup {
     text-align: left;
-    max-width: 400px !important; 
+    max-width: 290px !important; 
     max-height: 600px !important;
+
   }
+  
 
   .title{
     font-size: 15pt;
@@ -28,13 +30,13 @@ body::-webkit-scrollbar{
     }
     .custom-listgroup {
       text-align: left;
-      max-height: 600px !important; 
+      max-height: 600px!important; 
     }
   }
 
   .content-card{
     max-height: 90vh;
-    min-height: 90vh;
+    min-height: 90vh; 
   }
 
   .result-container{
