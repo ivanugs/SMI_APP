@@ -1,0 +1,9 @@
+
+
+.parent-container {
+    max-height: 100vh;
+    min-height: 100vh;
+    background:
+        linear-gradient(110deg, #4E9B92 50%, #9ae7ba 50%, #9ae7ba 52%, #d1f5de 52%, #d1f5de 0) 0 0/100% calc(100% - 10px) no-repeat,
+        linear-gradient(110deg, #4E9B92 52%, transparent 0) 0 100%/100% 100% no-repeat;
+}

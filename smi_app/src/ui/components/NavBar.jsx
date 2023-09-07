@@ -20,7 +20,7 @@ export const NavBar = () => {
   return (
     <Navbar
       bg="light"
-      className="mb-4 px-4 main-nav"
+      className="px-4 main-nav"
       expand="lg"
       expanded={expanded}
     >
