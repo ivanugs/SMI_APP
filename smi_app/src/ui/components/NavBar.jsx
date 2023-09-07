@@ -42,6 +42,7 @@ export const NavBar = () => {
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown id="" title="Hospitales" menuVariant="white">
+              <NavDropdown.Item href="/hospitales/cercano">Hospital Cercano</NavDropdown.Item>
               <NavDropdown.Item href="/hospitales/">Lista</NavDropdown.Item>
               <NavDropdown.Item href="/hospitales/buscar">
                 Buscar
@@ -65,7 +66,7 @@ export const NavBar = () => {
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
-        {isCommonLoading && <MiniSpinner />}
+        {isCommonLoading && <MiniSpinner/>}
       </Container>
     </Navbar>
   );

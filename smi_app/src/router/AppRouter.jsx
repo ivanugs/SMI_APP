@@ -7,6 +7,7 @@ import { useAuthStore } from "../hooks";
 
 // Common
 import { Spinner } from "../ui/components/Spinner";
+import { HospitalesCercanosPage, HospitalesPage } from "../hospitales";
 
 export const AppRouter = () => {
   // const authStatus = 'authenticated';
@@ -37,12 +38,9 @@ export const AppRouter = () => {
         <>
           <Route path="/" element={<HomePage />} />
 
-          {/* Proffers */}
-          {/* <Route path="/rutas/" element={<ListProffer />} />
-          <Route
-            path="/propuestas/mis_propuestas"
-            element={<ListMyProffer />}
-          /> */}
+          {/* Hospitals */}
+          <Route path="/hospitales/" element={<HospitalesPage />} />
+          <Route path="/hospitales/cercano" element={<HospitalesCercanosPage />} />
           <Route path="/*" element={<Navigate to="/" />} />
         </>
       )}
