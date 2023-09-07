@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from usuarios.serializers import UsuarioSerializer
+from usuarios.serializers import UsuarioSerializer, UsuarioListSerializer
 from .models import Usuario
 import jwt
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -75,6 +75,13 @@ class UserView(APIView):
 
         user = Usuario.objects.filter(id=payload['id']).first()
         serializer = UsuarioSerializer(user)
+
+        return Response(serializer.data)
+
+class UserListView(APIView):
+    def get(self, request):
+        users = Usuario.objects.all()
+        serializer = UsuarioListSerializer(users, many=True)
 
         return Response(serializer.data)
 

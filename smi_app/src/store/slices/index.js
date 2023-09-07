@@ -9,3 +9,6 @@ export * from './hospitales/hospitalesThunk';
 
 export * from './common/commonSlice';
 export * from './common/commonThunk';
+
+export * from './users/userSlice';
+export * from './users/userThunk';

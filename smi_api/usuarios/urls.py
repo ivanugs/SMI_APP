@@ -2,7 +2,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib.auth import views as auth_views
-from .views import RegisterView, LoginView, TokenRefreshView, UserView, LogoutView
+from .views import RegisterView, LoginView, TokenRefreshView, UserView, LogoutView, UserListView
 
 # from rest_framework_simplejwt.views import (
 #     TokenRefreshView,
@@ -58,5 +58,7 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    # Admin
+    path("list", UserListView.as_view(), name="users_list")
 ]
 
