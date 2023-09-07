@@ -36,8 +36,8 @@ class RegistroViewSet(viewsets.ModelViewSet):
     def register_card(self, request):
         patient_uuid = request.GET.get("patient_uuid")
         existe_paciente = Paciente.objects.filter(uuid=patient_uuid).first()
-        if not existe_paciente:
-
+        if not existe_paciente.tiene_tarjeta:
+            print("No tiene tarjeta")
             return Response({"No Existe Paciente":patient_uuid})
         else:
             return Response({"Existe Paciente":patient_uuid})

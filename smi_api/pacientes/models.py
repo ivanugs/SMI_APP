@@ -26,7 +26,8 @@ class PacienteTarjeta(models.Model):
         Paciente, on_delete=models.CASCADE, db_column="paciente_id", null=True
     )
     motivo_baja = models.CharField(max_length=200, null=True)
-    
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
     class Meta:
         db_table = "tarjetas_paciente"
 

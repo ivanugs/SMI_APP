@@ -25,4 +25,25 @@ export const getPatient = (id) => {
   };
 };
 
+export const assignPatientCard = (uuid) => {
+  return async (dispatch, getState) => {
+    dispatch(startLoadingPatients());
+
+    const { data } = await api.put(`/pacientes/${uuid}/assign_card/`);
+
+    dispatch(setPatient({ paciente: data }));
+  };
+};
+
+export const unassignPatientCard = (uuid) => {
+  return async (dispatch, getState) => {
+    dispatch(startLoadingPatients());
+
+    const { data } = await api.put(`/pacientes/${uuid}/unassign_card/`);
+
+    dispatch(setPatient({ paciente: data }));
+  };
+};
+
+
 
