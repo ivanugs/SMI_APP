@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.pagination import PageNumberPagination
 from registros.models import Registro, TipoRegistro
+from pacientes.models import Paciente
 from registros.serializers import RegistroSerializer
 from rest_framework.decorators import action
 from django.utils import timezone
@@ -30,4 +31,14 @@ class RegistroViewSet(viewsets.ModelViewSet):
             return Response({"Tarjeta registrada":mac})
         else:
             return Response({"Existe registro":mac})
+        
+    @action(detail=False, methods=["get"])
+    def register_card(self, request):
+        patient_uuid = request.GET.get("patient_uuid")
+        existe_paciente = Paciente.objects.filter(uuid=patient_uuid).first()
+        if not existe_paciente:
+
+            return Response({"No Existe Paciente":patient_uuid})
+        else:
+            return Response({"Existe Paciente":patient_uuid})
 
