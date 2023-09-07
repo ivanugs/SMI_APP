@@ -20,6 +20,12 @@ export const PacienteComponent = () => {
 
   const handleAssignCard = async (uuid) => {
     try {
+      Swal.fire({
+        title: "Acerca tu Tarjeta",
+        html: '<div class="spinner"></div><div style="margin-top: 10px;">Se vinculará con tu vuenta...</div>',
+        allowOutsideClick: false,
+        showConfirmButton: false,
+      });
       await dispatch(assignPatientCard(uuid));
       Swal.fire({
         icon: "success",
@@ -42,7 +48,7 @@ export const PacienteComponent = () => {
       await dispatch(unassignPatientCard(uuid));
       Swal.fire({
         icon: "success",
-        title: "La credencial ha sido asignada!",
+        title: "La credencial se ha desasignado!",
         text: "Ahora puede ser registrado en las unidades médicas",
       }).then(() => {
         window.location.reload();
