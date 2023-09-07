@@ -66,6 +66,7 @@ export const NavBar = () => {
                 Crear Usuario
               </NavDropdown.Item>
               <NavDropdown.Item href="/pacientes/">Pacientes</NavDropdown.Item>
+              <NavDropdown.Item href="/pacientes/asistencia">Asistencia Paciente</NavDropdown.Item>
             </NavDropdown>
           </Nav>
           <Nav>
